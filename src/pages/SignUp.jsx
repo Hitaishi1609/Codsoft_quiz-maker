@@ -59,7 +59,8 @@ function Signup() {
 
 
     dispatch(signup(firstName, lastName, email, password, confirmPassword))
-    console.log("LOADING",loading, message,error)
+    localStorage.setItem("LoggedIn","true")
+    navigate("/")
 
     // Reset
     setFormData({
@@ -74,7 +75,7 @@ function Signup() {
 
 
   return (
-    <div className='w-1/2 ml-80 mt-32'>
+    <div className='w-1/2 ml-80 m-auto'>
       <form 
         onSubmit={submitHandler} 
       >

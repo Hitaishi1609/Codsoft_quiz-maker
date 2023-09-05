@@ -67,25 +67,18 @@ export const signup =
         }
       );
 
+      console.log("LOG IN HOGYA")
+
+      const authenticationResult = 'success';
       dispatch({
         type: "loginSuccess",
-        payload: data,
+        payload: {data, authenticationResult}
       });
     } catch (error) {
       dispatch({
         type: "loginFail",
         payload: error.response.data.message,
       });
-
-      if (error.response) {
-        console.log('Response Error Data:', error.response.data);
-        console.log('Response Error Status:', error.response.status);
-        console.log('Response Error Headers:', error.response.headers);
-      } else if (error.request) {
-        console.log('Request Error:', error.request);
-      } else {
-        console.log('Error:', error.message);
-      }
   
     }
   };
@@ -99,6 +92,26 @@ export const clearErrorMessage = () => dispatch =>{
   })
 }
 
+export const getMyProfile=()=> async dispatch=>{
+  try {
+    dispatch({ type: 'loadUserRequest' });
+
+    console.log("BEFORE DATA")
+    const { data } = await axios.get(
+      `${BASE_URL}/auth/me`,
+      {
+        withCredentials: true,
+      }
+    );
+    console.log("AFTER DATA", data)
+    dispatch({ type: 'loadUserSuccess', payload: data.User });
+    console.log("payload", data.User)
+  } catch (error) {
+    console.log("error", error)
+    dispatch({ type: 'loadUserFail', payload: error.response.data.error });
+  }
+}
+
 export const logout=()=>async dispatch=>{
   try {
     dispatch({ type: 'logoutRequest' });
@@ -106,7 +119,9 @@ export const logout=()=>async dispatch=>{
     const { data } = await axios.post(`${BASE_URL}/auth/logout`, {
       withCredentials: true,
     });
-    dispatch({ type: 'logoutSuccess', payload: data.message });
+    const authenticationResult = 'fail';
+
+    dispatch({ type: 'logoutSuccess', payload: {data, authenticationResult }});
   } catch (error) {
     dispatch({ type: 'logoutFail', payload: error.response.data.message });
   }

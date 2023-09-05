@@ -55,8 +55,6 @@ export const postQuestion =
         }
       );
 
-      console.log("data", data)
-
       dispatch({
         type: "postQuestionSuccess",
         payload: data,

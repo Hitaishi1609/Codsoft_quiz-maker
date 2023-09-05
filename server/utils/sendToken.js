@@ -21,7 +21,7 @@ exports.sendToken = (res, user, message, statusCode = 200) => {
     const token = req.cookies.token;
   
     if (!token) {
-      return res.status(401).json({ success: false, message: "User Not Logged In" });
+      return res.status(401).json({ success: false, message: "User Not Logged In - token" });
     }
   
     try {

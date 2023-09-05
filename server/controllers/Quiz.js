@@ -1,8 +1,16 @@
 const quiz = require("../models/quiz")
+const User = require("../models/user")
 
 exports.postQuiz = async (req, res) => {
     try {  
       let { quizName, userId } = req.body
+      const user= await User.findById(userId)
+      if ( !user ) {
+        return res.status(400).json({
+          success: false,
+          message: "User does not exist",
+        })
+      }
 
       if ( !quizName || !userId ) {
         return res.status(400).json({
@@ -21,7 +29,6 @@ exports.postQuiz = async (req, res) => {
   
       res.status(200).json({
         success: true,
-        data: newQuiz,
         message: "Quiz Posted Successfully",
       })
     } catch (error) {

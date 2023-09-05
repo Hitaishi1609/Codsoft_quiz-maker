@@ -34,6 +34,18 @@ export const quizReducer = createReducer(
     getSingleQuizFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
+    },
+    addQuizRequest: (state) => {
+      state.loading = true;
+    },
+    addQuizSuccess: (state, action) => {
+      state.loading = false;
+      state.success = action.payload.success;
+      state.message = action.payload.message;
+    },
+    addQuizFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
     } 
   }
 );

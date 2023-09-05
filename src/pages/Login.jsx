@@ -8,13 +8,12 @@ import { clearErrorMessage, login } from '../redux/actions/auth';
 
 function Login() {
 
+  const navigate=useNavigate()
   const dispatch = useDispatch();
 
     const [formData, setFormData] = useState( {
         email:"", password:""
     })
-
-  const[showPassword, setShowPassword] = useState(false);
 
   function changeHandler(event) {
 
@@ -27,12 +26,28 @@ function Login() {
 
 }
 
+
+
+
+
+const success = useSelector(state => state.auth);
+//console.log("SUCCESS in LOGIN", success)
+const authenticationResult = useSelector((state) => state.auth.authenticationResult);
+console.log("authenticationResult", authenticationResult)
+
+useEffect(() => {
+  if (authenticationResult === 'success') {
+    localStorage.setItem("LoggedIn", "true");
+    navigate("/");
+  } else if (authenticationResult === 'failure') {
+    localStorage.setItem("LoggedIn", "false");
+  }
+  console.log("LOCAL", localStorage.getItem("LoggedIn"))
+}, [authenticationResult]);
+
   function submitHandler(event) {
     event.preventDefault();
-    console.log("Printing the formData ");
-    console.log(formData)
     dispatch(login(formData.email, formData.password))
-
 }
 
   return (

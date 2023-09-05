@@ -92,6 +92,7 @@ exports.login = async (req, res) => {
   
       //check for registered user
       let user = await User.findOne({ email });
+      console.log("User", user)
   
       //if not a registered user
       if (!user) {
@@ -117,6 +118,22 @@ exports.login = async (req, res) => {
       });
     }
   }
+
+
+  exports.getMyProfile = async (req, res) => {
+    try {
+     const user =await  User.findById(req.user._id);
+     console.log("USER", user)
+     if (!user) {
+       return res
+         .status(500)
+         .json({ success: false, message: "User Not Logged In" });
+     }
+     res.status(200).json({ success: true, User: user });
+   } catch (error) {
+     res.status(400).json({ success: false, message: error });
+   }
+ };
 
 
   exports.logout = async (req, res) => {

@@ -3,23 +3,29 @@ import { Stepper, Step, StepLabel, StepContent, Button } from '@mui/material';
 
 const QuestionStepper = ({ questions }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOptions, setSelectedOptions] = useState([]);
+
 
   const handleNext = () => {
     // Process the answer and move to the next question
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSelectedOption('');
+    setSelectedOptions('');
   };
 
   const handleBack = () => {
     // Go back to the previous question
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    setSelectedOption('');
+    setSelectedOptions('');
   };
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
+  const handleRadioChange = (event) => {
+    event.preventDefault()
+    const updatedOptions = [...selectedOptions];
+    updatedOptions[activeStep] = event.target.value;
+    setSelectedOptions(updatedOptions);
   };
+
+  console.log("selected options", selectedOptions)
 
   const isLastStep = activeStep === (questions && questions.length - 1);
 
@@ -28,11 +34,10 @@ const QuestionStepper = ({ questions }) => {
       <div key={index}>
         <label>
           <input
+            value={option} onChange={handleRadioChange}
             type="radio"
             name={`question-${activeStep}`}
-            value={option}
-            checked={selectedOption === option}
-            onChange={handleOptionChange}
+            checked={selectedOptions === option}
           />
           {option}
         </label>
@@ -45,9 +50,11 @@ const QuestionStepper = ({ questions }) => {
       <Stepper activeStep={activeStep} orientation="vertical">
         {questions && questions.map((question, index) => (
           <Step key={index}>
-            <StepLabel>{question.quesStmt}</StepLabel>
+            <StepLabel>Question : {index+1} </StepLabel>
             <StepContent>
+            <label className='mb-2'>{question.quesStmt}</label>
               {renderOptions()}
+
               <Button onClick={handleBack} disabled={activeStep === 0}>
                 Back
               </Button>
