@@ -46,7 +46,7 @@ const Question = () => {
   return (
     <form
       onSubmit={addQuestion}
-      style={{ width: "80%", margin: "auto", justifyContent: "center" }}
+      style={{ margin: "auto", justifyContent: "center" }}
     >
       <div className="mt-[20px]">
         <label className="w-full mt-[20px]">

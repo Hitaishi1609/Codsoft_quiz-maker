@@ -122,8 +122,8 @@ exports.login = async (req, res) => {
 
   exports.getMyProfile = async (req, res) => {
     try {
-     const user =await  User.findById(req.user._id);
-     console.log("USER", user)
+     const user = await User.findById(req.user._id);
+     console.log("USER>>>>>", req.user._id)
      if (!user) {
        return res
          .status(500)

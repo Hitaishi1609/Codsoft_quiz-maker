@@ -12,7 +12,7 @@ const Home = () => {
       <div className="flex flex-col bg-amber-200 border-4 border-amber-400 rounded-full w-3/4 h-3/4 absolute items-center">
         <p className="font-extrabold font-serif text-4xl text-amber-500 mt-10">
           {" "}
-          {(success === true)
+          {(localStorage.getItem("LoggedIn") === "true")
             ? "Welcome to Online Quiz Maker!"
             : "Test Your Knowledge Here!"}
         </p>

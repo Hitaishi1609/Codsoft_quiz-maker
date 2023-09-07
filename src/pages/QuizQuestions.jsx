@@ -33,7 +33,7 @@ const QuizQuestions = () => {
         {questions && currentQuestion < questions?.length ? (
     <div className="flex flex-col items-center m-8">
       <div className="flex flex-col bg-amber-200 border-4 border-amber-400 rounded-full w-3/4 h-3/4 absolute items-center">
-        <div className="mt-12">
+        <div className="mt-12 max-w-2xl mx-auto">
         <h2 className="text-amber-500 italic">Question Statement: </h2>
           <h2 className="mt-2">{questions[currentQuestion].quesStmt}</h2>
           <div className="answer-options">
@@ -54,11 +54,11 @@ const QuizQuestions = () => {
             ))}
             {currentQuestion < questions.length - 1 ? (
               <button
-              className="bg-amber-200 border-4 border-amber-400 text-amber-500 py-[4px] px-[5px] rounded-[8px] w-fit mt-8 ml-32"
+              className="bg-amber-200 border-4 border-amber-400 text-amber-500 py-[4px] px-[5px] rounded-[8px] w-fit mt-8 mx-auto"
                onClick={handleSubmit}>Next Question</button>
             ) : (
               <button
-              className="bg-amber-200 border-4 border-amber-400 text-amber-500 py-[4px] px-[5px] rounded-[8px] w-fit mt-8 ml-32"
+              className="bg-amber-200 border-4 border-amber-400 text-amber-500 py-[4px] px-[5px] rounded-[8px] w-fit mt-8 mx-auto"
                onClick={handleSubmit}>Submit</button>
             )}
           </div>
@@ -84,10 +84,8 @@ const QuizQuestions = () => {
 
 
 
-            
-
-          <div className="question-list mt-8">
-            <h2 className="underline text-xl">Questions and Correct Answers</h2>
+          <div className="question-list mt-8 max-w-3xl">
+            <h2 className="underline text-xl italic">Questions and Correct Answers</h2>
             <ul className="mt-4">
               {questions && questions?.map((question, index) => (
                 <li key={index}>

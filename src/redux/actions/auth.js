@@ -67,12 +67,11 @@ export const signup =
         }
       );
 
-      console.log("LOG IN HOGYA")
+      console.log("LOG IN SUCCESSFUL")
 
-      const authenticationResult = 'success';
       dispatch({
         type: "loginSuccess",
-        payload: {data, authenticationResult}
+        payload: data
       });
     } catch (error) {
       dispatch({
@@ -97,17 +96,18 @@ export const getMyProfile=()=> async dispatch=>{
     dispatch({ type: 'loadUserRequest' });
 
     console.log("BEFORE DATA")
-    const { data } = await axios.get(
+    const data  = await axios.get(
       `${BASE_URL}/auth/me`,
       {
         withCredentials: true,
       }
     );
-    console.log("AFTER DATA", data)
-    dispatch({ type: 'loadUserSuccess', payload: data.User });
-    console.log("payload", data.User)
+    debugger
+    console.log("DATA>>>>>>.", data)
+    dispatch({ type: 'loadUserSuccess', payload: data });
+    console.log("getmyprofile", data.User)
   } catch (error) {
-    console.log("error", error)
+    console.log("error in getmyprofile()")
     dispatch({ type: 'loadUserFail', payload: error.response.data.error });
   }
 }

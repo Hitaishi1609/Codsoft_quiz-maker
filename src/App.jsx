@@ -19,9 +19,10 @@ const App = () => {
   );
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getMyProfile());
-  // }, [dispatch, user]);
+  useEffect(() => {
+    dispatch(getMyProfile());
+  }, [dispatch]);
+
 
   useEffect(() => {
     if (message) {

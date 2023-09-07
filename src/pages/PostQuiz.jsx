@@ -11,14 +11,13 @@ const PostQuiz = () => {
     const dispatch= useDispatch()
 
     
+    const {user} = useSelector((state) => state.auth);
     const [quizName, setQuizName] = useState('')
 
     useEffect(() => {
       dispatch(getMyProfile());
-    }, []);
+    }, [dispatch]);
     
-    
-    const {user}  = useSelector((state) => state.auth);
     console.log("user in post quiz", user)
 
 

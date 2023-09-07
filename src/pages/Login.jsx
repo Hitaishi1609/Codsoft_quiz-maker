@@ -3,7 +3,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast'; 
 import { useDispatch, useSelector } from 'react-redux';
-import { clearErrorMessage, login } from '../redux/actions/auth';
+import { clearErrorMessage, getMyProfile, login } from '../redux/actions/auth';
 
 
 function Login() {
@@ -35,19 +35,21 @@ const success = useSelector(state => state.auth);
 const authenticationResult = useSelector((state) => state.auth.authenticationResult);
 console.log("authenticationResult", authenticationResult)
 
-useEffect(() => {
-  if (authenticationResult === 'success') {
-    localStorage.setItem("LoggedIn", "true");
-    navigate("/");
-  } else if (authenticationResult === 'failure') {
-    localStorage.setItem("LoggedIn", "false");
-  }
-  console.log("LOCAL", localStorage.getItem("LoggedIn"))
-}, [authenticationResult]);
+// useEffect(() => {
+//   if (authenticationResult === 'success') {
+//     localStorage.setItem("LoggedIn", "true");
+//     navigate("/");
+//   } else if (authenticationResult === 'failure') {
+//     localStorage.setItem("LoggedIn", "false");
+//   }
+//   console.log("LOCAL", localStorage.getItem("LoggedIn"))
+// }, [authenticationResult]);
 
   function submitHandler(event) {
     event.preventDefault();
     dispatch(login(formData.email, formData.password))
+    localStorage.setItem("LoggedIn", "true");
+    navigate("/");
 }
 
   return (

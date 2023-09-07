@@ -25,6 +25,7 @@ exports.sendToken = (res, user, message, statusCode = 200) => {
     }
   
     try {
+      console .log("TOKEN", token)
       const decodedToken = jwt.verify(token, "secret");
       console.log("decoded token ",decodedToken);
       req.user = { _id: decodedToken._id }; // Attach the user's ID to req.user
